@@ -3,9 +3,6 @@
         "$match": {
             "year": {
                 "$lt": 1950
-            },
-            "imdb.rating": {
-                "$gte": 7.0
             }
         }
     },
@@ -18,6 +15,20 @@
         }
     },
     {
+        "$addFields": {
+            "averageImdbRating": {
+                "$avg": "$imdb.rating"
+            }
+        }
+    },
+    {
+        "$match": {
+            "averageImdbRating": {
+                "$gte": 7.0
+            }
+        }
+    },
+    {
         "$project": {
             "title": 1,
             "_id": 0,
@@ -27,7 +38,10 @@
             "comments": {
                 "$map": {
                     "input": {
-                        "$slice": ["$comments", 2]
+                        "$slice": [
+                            "$comments",
+                            2
+                        ]
                     },
                     "as": "comment",
                     "in": {

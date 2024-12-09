@@ -45,6 +45,10 @@
 
     $lookup : To join the data to get the comments associated with the movie.
 
+    $addFields : Adds the average IMDb rating using $avg on the imdb.rating field.
+
+    $match : To make a match where the average imdb rating is >= 7
+
     $project : To decide what to expect in the output, moviecount, castmember etc.
 
     $map : For each comment, we want to display certain data only, name and text.
